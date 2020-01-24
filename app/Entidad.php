@@ -14,4 +14,8 @@ class Entidad extends Model
     public function facturador(){
         return $this->belongsTo('App\Facturador');
     }
+
+    public function localidad(){
+        return $this->hasOne('App\Localidad', 'id_localidad', 'localidad');
+    }
 }

@@ -19,4 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/test', 'Test\testController@test');
 Route::get('/facturador', 'Test\testController@getFacturador');
-Route::get('/facturadorEager', 'Test\testController@getFact');
+Route::get('/facturadorEager', 'Test\testController@getFact'); //getEntidad
+Route::get('/entidadEager', 'Test\testController@getEntidad'); //getEntidad

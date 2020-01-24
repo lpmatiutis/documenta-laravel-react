@@ -31,4 +31,8 @@ class testController extends Controller
     //return Facturador::entidad()->load('entidad');
     //return $users;
    }
+
+   public function getEntidad(Request $request){
+    return $entidad = Entidad::with('localidad')->get();
+   }
 }
