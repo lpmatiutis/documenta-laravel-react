@@ -8,7 +8,7 @@ export default class Dutylist extends Component {
                 <div className="row justify-content-center">
                     <div className="col-md-8">
                         <div className="card">
-                            <div className="card-header">Welcome to Resident Evil 8</div>
+                            <div className="card-header">Welcome to Resident Evil 4</div>
                             <div className="card-body">Hi! I'm a react component! =)</div>
                         </div>
                     </div>
