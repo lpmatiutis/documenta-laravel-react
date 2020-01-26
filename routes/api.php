@@ -35,3 +35,5 @@ Route::get('/getTipoZona/{id}', 'reddpago\TipoZonaController@show'); //obtener z
 Route::post('/TipoZona', 'reddpago\TipoZonaController@create'); //insertar nueva zona
 Route::put('/TipoZona/{id}', 'reddpago\TipoZonaController@update'); //actualizar zona
 Route::delete('/TipoZona/{id}', 'reddpago\TipoZonaController@delete');
+
+Route::get('/getServicioApiAll', 'reddpago\ServicioApiController@getAllServicioApi'); 
