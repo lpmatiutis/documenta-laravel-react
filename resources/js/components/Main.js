@@ -5,6 +5,7 @@ import AddTipoZona from './AddTipoZona';
 import 'bulma/css/bulma.css';
 import {Navbar} from './Navbar';
 import ExampleDatable from './exampleDatable.js'
+import ServicioApi from './ServicioApi'
 
 export default class Main extends Component {
     constructor() {
@@ -67,24 +68,7 @@ export default class Main extends Component {
         return (
             <div className="container">
             <Navbar/>
-            <div class="columns is-desktop">
-                <div div class="column">
-                    <h3>Todas las zonas</h3>
-                    <ul>
-                        {this.renderTipoZona()}
-                    </ul>
-                    <div>
-                        <TipoZona tipoZona={this.state.currentTipoZona} />
-                    </div>
-                </div>
-
-                <div div class="column">
-                    <AddTipoZona onAdd={this.handleAddTipoZona} />
-                </div>
-                <div>
-                    <ExampleDatable></ExampleDatable>
-                </div>
-            </div>
+            <ServicioApi></ServicioApi>
             </div>
         );
     }

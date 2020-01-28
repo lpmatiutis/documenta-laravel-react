@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Facturador extends Model
 {
+    protected $connection = 'reddepago';
     protected $table = 'facturador';
     
     //protected $fillable = ['descripcion'];
