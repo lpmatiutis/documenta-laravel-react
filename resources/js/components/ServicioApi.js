@@ -1,55 +1,36 @@
 import DataTable from "react-data-table-component";
 import React, { Component } from "react";
 import Icon from "@material-ui/icons/Apps";
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import Dialog from "@material-ui/core/Dialog";
+import { blue } from "@material-ui/core/colors";
+import DialogTest from './DialogTest';
+
+class SimpleDialogDemo extends React.Component {
+    state = {
+      open: false
+    };
+    openDialog() {
+      this.setState({ open: true });
+    }
+    render() {
+      return (
+        <div className="App">
+          <Button onClick={this.openDialog.bind(this)}>Open dialog</Button>
+          <Dialog open={this.state.open} onEnter={console.log("Hey.")}>
+            <DialogTitle>Hello CodeSandbox</DialogTitle>
+            <DialogContent>Start editing to see some magic happen!</DialogContent>
+          </Dialog>
+        </div>
+      );
+    }
+  }
 
 let data = [];
-
-function convertArrayOfObjectsToCSV(array) {
-    let result;
-
-    const columnDelimiter = ",";
-    const lineDelimiter = "\n";
-    const keys = Object.keys(data[0]);
-
-    result = "";
-    result += keys.join(columnDelimiter);
-    result += lineDelimiter;
-
-    array.forEach(item => {
-        let ctr = 0;
-        keys.forEach(key => {
-            if (ctr > 0) result += columnDelimiter;
-
-            result += item[key];
-
-            ctr++;
-        });
-        result += lineDelimiter;
-    });
-
-    return result;
-}
-
-function downloadCSV(array) {
-    const link = document.createElement("a");
-    let csv = convertArrayOfObjectsToCSV(array);
-    if (csv == null) return;
-
-    const filename = "export.csv";
-
-    if (!csv.match(/^data:text\/csv/i)) {
-        csv = `data:text/csv;charset=utf-8,${csv}`;
-    }
-
-    link.setAttribute("href", encodeURI(csv));
-    link.setAttribute("download", filename);
-    link.click();
-}
-
-
-const Export = ({ onExport }) => (
-    <Button onClick={e => onExport(e.target.value)}>Export</Button>
-  );
 
 function getServicioApi() {
     fetch("api/getServicioApiAll")
@@ -62,10 +43,6 @@ function getServicioApi() {
             console.log(data);
         });
 }
-
-// const ExpanableComponent = ({ data }) => {
-//     data.moneda;
-// };
 
 getServicioApi();
 
@@ -95,6 +72,26 @@ const customStyles = {
         }
     }
 };
+
+const ExtrasStyle = {
+    color: "white",
+    backgroundColor: "DodgerBlue",
+    padding: "10px",
+    fontFamily: "Arial"
+};
+
+const Extras = ({ data }) => (
+    <div style={ExtrasStyle}>
+        <p> Parametros: {data.parametros} </p>
+        <p> Modalidad: {data.modalidad} </p>
+    </div>
+);
+
+//Dialogo
+
+
+
+//Fin dialogo
 
 const columns = [
     {
@@ -132,41 +129,41 @@ const columns = [
         grow: 0
         //right: true
     },
-    // {
-    //     name: 'Habilitado',
-    //     selector: 'habilitado',
-    //     sortable: true,
-    //     right: true,
-    // },
-    // {
-    //     name: 'EnApi',
-    //     selector: 'en_api',
-    //     //sortable: true,
-    //     right: true,
-    // },
-    // {
-    //     name: 'Pago Parcial',
-    //     selector: 'pago_parcial',
-    //     //sortable: true,
-    //     right: true,
-    // },
-    // {
-    //     name: 'Pago Cheque',
-    //     selector: 'pago_en_cheque',
-    //     sortable: true,
-    //     right: true,
-    // },
-    // {
-    //     name: 'Anulable',
-    //     selector: 'anulable',
-    //     sortable: true,
-    //     right: true,
-    // },
+    {
+        name: "Habilitado",
+        selector: "habilitado",
+        sortable: true,
+        grow: -1
+    },
+    {
+        name: "En Api",
+        selector: "en_api",
+        sortable: true,
+        grow: -1
+    },
+    {
+        name: "Pago Parcial",
+        selector: "pago_parcial",
+        sortable: true,
+        grow: -1
+    },
+    {
+        name: "Pago Cheque",
+        selector: "pago_en_cheque",
+        sortable: true,
+        grow: -1
+    },
+    {
+        name: "Anulable",
+        selector: "anulable",
+        sortable: true,
+        grow: -1
+    },
     {
         name: "R. Consulta",
         selector: "referencia_consulta",
         sortable: true,
-        grow: 0.3
+        grow: 0.4
         //right: true
     },
     // {
@@ -176,44 +173,48 @@ const columns = [
     //     hide: 'md',
     //     //right: true
     // },
+    // {
+    //     name: "Parametros",
+    //     selector: "parametros",
+    //     sortable: true,
+    //     grow: 0.4
+    //     //right: true
+    // },
+    // {
+    //     name: "Modalidad",
+    //     selector: "modalidad",
+    //     sortable: true,
+    //     grow: 0.3
+    //     //right: true,
+    // }
     {
-        name: "Parametros",
-        selector: "parametros",
-        sortable: true,
-        grow: 0.4
-        //right: true
-    },
-    {
-        name: "Modalidad",
-        selector: "modalidad",
-        sortable: true,
-        grow: 0.3
-        //right: true,
-    }
+
+        cell: data => <DialogTest idservicio={data.id_servicio}/>,
+        ignoreRowClick: true,
+        allowOverflow: true,
+        button: true,
+      }
 ];
 
-const handleChange = state => {
-    // You can use setState or dispatch with something like Redux so we can use the retrieved data
-    console.log("Selected Rows: ", state.selectedRows);
+//export default class ServicioApi extends Component {
+export const ServicioApi = () => {
+    //render() {
+    return (
+        <DataTable
+            title="Servicios API"
+            columns={columns}
+            data={data}
+            //selectableRows
+            Clicked
+            //Selected={handleChange}
+            customStyles={customStyles}
+            highlightOnHover
+            pointerOnHover
+            pagination
+            dense
+            expandableRows
+            expandableRowsComponent={<Extras />}
+        />
+    );
+    //}
 };
-
-export default class ServicioApi extends Component {
-    render() {
-        return (
-            <DataTable
-                title="Servicios API"
-                columns={columns}
-                data={data}
-                //selectableRows
-                Clicked
-                //Selected={handleChange}
-                customStyles={customStyles}
-                highlightOnHover
-                pointerOnHover
-                pagination
-                dense
-                //expandableRows
-            />
-        );
-    }
-}

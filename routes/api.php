@@ -37,3 +37,10 @@ Route::put('/TipoZona/{id}', 'reddpago\TipoZonaController@update'); //actualizar
 Route::delete('/TipoZona/{id}', 'reddpago\TipoZonaController@delete');
 
 Route::get('/getServicioApiAll', 'reddpago\ServicioApiController@getAllServicioApi'); 
+
+Route::get('/ServicioRc', 'redcobrosjp\ServicioRcController@getServicioRc');
+Route::get('/ServicioRc/{id}', 'redcobrosjp\ServicioRcController@getServicioRcId');
+
+Route::get('/LogConsultas', 'redcobrosjp\LogConsultasController@getLogConsultas');
+Route::get('/LogConsultas/{id}', 'redcobrosjp\LogConsultasController@getLogConsultasId');
+

@@ -5,7 +5,8 @@ import AddTipoZona from './AddTipoZona';
 import 'bulma/css/bulma.css';
 import {Navbar} from './Navbar';
 import ExampleDatable from './exampleDatable.js'
-import ServicioApi from './ServicioApi'
+import {ServicioApi} from './ServicioApi'
+import DialogTest from './DialogTest';
 
 export default class Main extends Component {
     constructor() {
@@ -68,7 +69,7 @@ export default class Main extends Component {
         return (
             <div className="container">
             <Navbar/>
-            <ServicioApi></ServicioApi>
+            <ServicioApi/>
             </div>
         );
     }
