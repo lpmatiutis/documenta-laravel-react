@@ -19,7 +19,7 @@ let data = [];
 
 function obtenerDatospruebas(idservicio) {
     console.log('ingreso datosprueba1');
-    fetch('api/LogConsultas/{$idservicio}')
+    fetch(`api/LogConsultas/${idservicio}`)
         .then(response => {
             console.log('ingreso datosprueba2');
             return response.json();
@@ -63,22 +63,22 @@ function SimpleDialog(props) {
                 Set backup account
             </DialogTitle>
             <List>
-                {emails.map(email => (
+                 {data.map(data => ( //data
                     <ListItem
-                        button
-                        onClick={() => handleListItemClick(email)}
-                        key={email}
+                        //button
+                        //onClick={() => handleListItemClick(data.referencia_consulta)}
+                        key={data.id_log_consulta}
                     >
-                        <ListItemAvatar>
+                        {/* <ListItemAvatar>
                             <Avatar className={classes.avatar}>
                                 <PersonIcon />
                             </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText primary={email} />
+                        </ListItemAvatar> */}
+                        <ListItemText primary={data.referencia_consulta} />
                     </ListItem>
                 ))}
 
-                <ListItem
+                {/* <ListItem
                     autoFocus
                     button
                     onClick={() => handleListItemClick("addAccount")}
@@ -89,7 +89,7 @@ function SimpleDialog(props) {
                         </Avatar>
                     </ListItemAvatar>
                     <ListItemText primary="Add account" />
-                </ListItem>
+                </ListItem> */}
             </List>
         </Dialog>
     );
@@ -106,7 +106,7 @@ export default function SimpleDialogDemo(props) {
     console.log('Props test2: ' + idservicio);
     obtenerDatospruebas(idservicio);
     const [open, setOpen] = React.useState(false);
-    const [selectedValue, setSelectedValue] = React.useState(emails[1]);
+    const [selectedValue, setSelectedValue] = React.useState(data[1]);
 
     const handleClickOpen = () => {
         setOpen(true);

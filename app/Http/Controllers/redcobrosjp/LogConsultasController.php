@@ -24,9 +24,11 @@ class LogConsultasController extends Controller
         //print('vino aqui');
         $logConsultas->setConnection('redcobrosjp');
         //print('vino aqui2');
-        $logConsultas = LogConsultas::select('referencia_consulta')
+        $logConsultas = LogConsultas::select('id_log_consulta', 'referencia_consulta')
                                     ->where('id_servicio', $id)
                                     ->where('cod_retorno', 0)
+                                    ->groupBy('referencia_consulta', 'id_log_consulta')
+                                    ->take(10)
                                     ->get();
         //print('vino aqui3');
         return $logConsultas;

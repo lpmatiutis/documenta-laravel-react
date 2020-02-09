@@ -53251,7 +53251,7 @@ var data = [];
 
 function obtenerDatospruebas(idservicio) {
   console.log('ingreso datosprueba1');
-  fetch('api/LogConsultas/{$idservicio}').then(function (response) {
+  fetch("api/LogConsultas/".concat(idservicio)).then(function (response) {
     console.log('ingreso datosprueba2');
     return response.json();
   }).then(function (servicios) {
@@ -53291,27 +53291,17 @@ function SimpleDialog(props) {
     open: open
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogTitle__WEBPACK_IMPORTED_MODULE_9__["default"], {
     id: "simple-dialog-title"
-  }, "Set backup account"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_List__WEBPACK_IMPORTED_MODULE_5__["default"], null, emails.map(function (email) {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItem__WEBPACK_IMPORTED_MODULE_6__["default"], {
-      button: true,
-      onClick: function onClick() {
-        return handleListItemClick(email);
-      },
-      key: email
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemAvatar__WEBPACK_IMPORTED_MODULE_7__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Avatar__WEBPACK_IMPORTED_MODULE_4__["default"], {
-      className: classes.avatar
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Person__WEBPACK_IMPORTED_MODULE_11___default.a, null))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_8__["default"], {
-      primary: email
-    }));
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItem__WEBPACK_IMPORTED_MODULE_6__["default"], {
-    autoFocus: true,
-    button: true,
-    onClick: function onClick() {
-      return handleListItemClick("addAccount");
-    }
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemAvatar__WEBPACK_IMPORTED_MODULE_7__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Avatar__WEBPACK_IMPORTED_MODULE_4__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Add__WEBPACK_IMPORTED_MODULE_12___default.a, null))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    primary: "Add account"
-  }))));
+  }, "Set backup account"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_List__WEBPACK_IMPORTED_MODULE_5__["default"], null, data.map(function (data) {
+    return (//data
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItem__WEBPACK_IMPORTED_MODULE_6__["default"] //button
+      //onClick={() => handleListItemClick(data.referencia_consulta)}
+      , {
+        key: data.id_log_consulta
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        primary: data.referencia_consulta
+      }))
+    );
+  })));
 }
 
 SimpleDialog.propTypes = {
@@ -53329,7 +53319,7 @@ function SimpleDialogDemo(props) {
       open = _React$useState2[0],
       setOpen = _React$useState2[1];
 
-  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(emails[1]),
+  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(data[1]),
       _React$useState4 = _slicedToArray(_React$useState3, 2),
       selectedValue = _React$useState4[0],
       setSelectedValue = _React$useState4[1];
