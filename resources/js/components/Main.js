@@ -1,25 +1,24 @@
-import React, {useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
-import { TipoZona } from './TipoZona';
-import AddTipoZona from './AddTipoZona';
+import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
+import { TipoZona } from "./TipoZona";
+import AddTipoZona from "./AddTipoZona";
 //import 'bulma/css/bulma.css';
-//import {Navbar} from './Navbar';
-//import {ServicioApi} from './ServicioApi'
-import DialogTest from './DialogTest';
-import TestBulma from './modelTestTwo/TestBulma';
+import { Navbar } from "./Navbar";
+import { ServicioApi } from "./ServicioApi";
+import DialogTest from "./DialogTest";
+//import TestBulma from './modelTestTwo/TestBulma';
+import Example from "./modalTestBoostrapTwo/Example";
 
 //export default class Main extends Component {
-const Main = () =>{
-
+const Main = () => {
     return (
-            <div className="container">
-            {/* <Navbar/> */}
-            <TestBulma></TestBulma>
-            {/* <ServicioApi/> */}
-            </div>
-        );
-}
+        <div className="container">
+            <Navbar />
+            <ServicioApi />
+        </div>
+    );
+};
 
-if (document.getElementById('root')) {
-    ReactDOM.render(<Main />, document.getElementById('root'));
+if (document.getElementById("root")) {
+    ReactDOM.render(<Main />, document.getElementById("root"));
 }

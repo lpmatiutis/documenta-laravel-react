@@ -9,7 +9,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 import Dialog from "@material-ui/core/Dialog";
 import { blue } from "@material-ui/core/colors";
 import DialogTest from "./DialogTest";
-import ExampleDatable from './ExampleDatable';
+import ExampleDatable from "./ExampleDatable";
+import Example from "./modalTestBoostrapTwo/Example";
 
 //Dialogo
 
@@ -87,13 +88,12 @@ export const ServicioApi = () => {
         fontFamily: "Arial"
     };
 
-    const handleButtonClick = (servicio) => {
+    const handleButtonClick = servicio => {
         console.log("clicked : " + servicio);
-        return(
-        <DialogTest idservicio={servicio} />
+        //return (
+        <Example idservicio={servicio} />;
         //AlertDialog();
-        
-        );
+        //);
         console.log("fin : ");
     };
 
@@ -108,7 +108,7 @@ export const ServicioApi = () => {
     const columns = [
         {
             cell: () => <Icon style={{ fill: "#43a047" }} />,
-            width: "56px", // custom width for icon button
+            width: "96px", // custom width for icon button
             style: {
                 borderBottom: "1px solid #FFFFFF",
                 marginBottom: "-1px"
@@ -169,20 +169,26 @@ export const ServicioApi = () => {
             grow: 0.4
         },
         {
-            //cell: data => <DialogTest idservicio={data.id_servicio} />,
+            //cell: data => <Example idservicio={data.id_servicio} />,
+            // cell: data => (
+            //     <button
+            //         onClick={() => {
+            //             //e.preventDefault()
+            //             return handleButtonClick(data.id_servicio);
+            //         }}
+            //     >
+            //         Consultar
+            //     </button>
+            // ),
             cell: data => (
-                <button
-                    onClick={() => {
-                        //e.preventDefault()
-                        return(
-                        handleButtonClick(data.id_servicio)
-                        )
-                    }}
+                <Button
+                // onClick={e => {
+                //     <DialogTest idservicio={data.id_servicio} />;
+                // }}
                 >
-                    Consultar
-                </button>
+                    <DialogTest idservicio={data.id_servicio} />
+                </Button>
             ),
-            //cell: (data) => <Button onClick={(e) => {<DialogTest idservicio={data.id_servicio} />}}>Consultar</Button>,
             ignoreRowClick: true,
             allowOverflow: true,
             button: true
@@ -215,12 +221,11 @@ export const ServicioApi = () => {
 };
 
 const AlertDialog = () => {
-  console.log('hola');
-  //alert('kore alert');
+    console.log("hola");
+    //alert('kore alert');
     return (
-      <div id="pruebafinal" className="container">
-          Open alert dialog
-       
-      </div>
+        <div id="pruebafinal" className="container">
+            Open alert dialog
+        </div>
     );
-  }
+};
