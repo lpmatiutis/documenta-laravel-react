@@ -1,38 +1,26 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import Avatar from "@material-ui/core/Avatar";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
-import PersonIcon from "@material-ui/icons/Person";
 import AddIcon from "@material-ui/icons/Add";
 import Typography from "@material-ui/core/Typography";
 import { blue } from "@material-ui/core/colors";
 import SendIcon from '@material-ui/icons/Send';
 
-let data = [];
-
-function obtenerDatospruebas(idservicio) {
-    console.log('ingreso datosprueba1');
-    fetch(`api/LogConsultas/${idservicio}`)
-        .then(response => {
-            console.log('ingreso datosprueba2');
-            return response.json();
-        })
-        .then(servicios => {
-            //console.log(servicios);
-            console.log('ingreso datosprueba3');
-            data = servicios;
-            console.log('datos: ' + data);
-        });
-}
-
-const emails = ["username@gmail.com", "user02@gmail.com"];
+// function obtenerDatospruebas(idservicio) {
+//     fetch(`api/LogConsultas/${idservicio}`)
+//         .then(response => {
+//             return response.json();
+//         })
+//         .then(servicios => {
+//             data = servicios;
+//         });
+// }
 const useStyles = makeStyles({
     avatar: {
         backgroundColor: blue[100],
@@ -40,10 +28,10 @@ const useStyles = makeStyles({
     }
 });
 
-function SimpleDialog(props) {
-    console.log('Props test: ' + props);
-    const classes = useStyles();
-    const { onClose, selectedValue, open } = props;
+const SimpleDialog = (props) => {
+    const { onClose, selectedValue, open }  = props;
+    const [{ datos }] = useState(props);
+    console.log('datos recibidos: ' + datos);
 
     const handleClose = () => {
         onClose(selectedValue);
@@ -63,33 +51,14 @@ function SimpleDialog(props) {
                 Set backup account
             </DialogTitle>
             <List>
-                 {data.map(data => ( //data
+                 {datos.map(data => (
                     <ListItem
-                        //button
                         //onClick={() => handleListItemClick(data.referencia_consulta)}
                         key={data.id_log_consulta}
                     >
-                        {/* <ListItemAvatar>
-                            <Avatar className={classes.avatar}>
-                                <PersonIcon />
-                            </Avatar>
-                        </ListItemAvatar> */}
                         <ListItemText primary={data.referencia_consulta} />
                     </ListItem>
                 ))}
-
-                {/* <ListItem
-                    autoFocus
-                    button
-                    onClick={() => handleListItemClick("addAccount")}
-                >
-                    <ListItemAvatar>
-                        <Avatar>
-                            <AddIcon />
-                        </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary="Add account" />
-                </ListItem> */}
             </List>
         </Dialog>
     );
@@ -98,15 +67,34 @@ function SimpleDialog(props) {
 SimpleDialog.propTypes = {
     onClose: PropTypes.func.isRequired,
     open: PropTypes.bool.isRequired,
-    selectedValue: PropTypes.string.isRequired
+    selectedValue: PropTypes.string
 };
 
-export default function SimpleDialogDemo(props) {
-    const { idservicio } = props;
-    console.log('Props test2: ' + idservicio);
-    obtenerDatospruebas(idservicio);
-    const [open, setOpen] = React.useState(false);
-    const [selectedValue, setSelectedValue] = React.useState(data[1]);
+const DialogTest = (props) => {
+    const [ {idservicio} ] = useState(props)
+    const [ data, setData ] = useState([])
+    const [open, setOpen] = useState(false);
+    const [ isLoading, setIsLoading ] = useState(false)
+    const [selectedValue, setSelectedValue] = useState(data[1]);
+    console.log('ingresando');
+    //const { idservicio } = props;
+    console.log('recibido :' + idservicio);
+    //obtenerDatospruebas(idservicio);
+    useEffect(() =>{
+        async function fetcData() {
+            setIsLoading(true)
+            fetch(`api/LogConsultas/${idservicio}`)
+            .then(response => {
+                return response.json();
+            })
+            .then(servicios => {
+                setData(servicios)
+                setIsLoading(false)
+            });
+        }
+    fetcData()
+    }, []);
+    
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -117,7 +105,7 @@ export default function SimpleDialogDemo(props) {
         setSelectedValue(value);
     };
 
-    return (
+    return isLoading ? <div>Cargando...</div> : (
         <div>
             <Button
                 variant="outlined"
@@ -130,7 +118,10 @@ export default function SimpleDialogDemo(props) {
                 selectedValue={selectedValue}
                 open={open}
                 onClose={handleClose}
+                datos = {data}
             />
         </div>
     );
 }
+
+export default DialogTest;

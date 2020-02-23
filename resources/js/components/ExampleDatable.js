@@ -3,27 +3,25 @@ import React, { Component } from 'react';
 
 let data = [];
 
-function getZona () {
+function getZona() {
     fetch('api/getTipoZona')
-    .then(response => {
-        return response.json();
-    })
-    .then(tipoZonas => {
-        console.log(tipoZonas);
-        data = tipoZonas;
-    });
+        .then(response => {
+            return response.json();
+        })
+        .then(tipoZonas => {
+            data = tipoZonas;
+        });
 }
 
 getZona();
 console.log(data);
 //const data = tipoZona;
 
-const columns = [
-    {
+const columns = [{
         name: 'Descripcion',
         selector: 'descripcion',
         sortable: true,
-        
+
     },
     {
         name: 'Codigo',
@@ -36,18 +34,16 @@ const columns = [
 const handleChange = (state) => {
     // You can use setState or dispatch with something like Redux so we can use the retrieved data
     console.log('Selected Rows: ', state.selectedRows);
-  };
+};
 
 export default class ExampleDatable extends Component {
     render() {
-        return (
-            <DataTable
-                title="Arnold Movies"
-                columns={columns}
-                data={data}
-                selectableRows
-                Clicked
-                Selected={handleChange}
+        console.log('test');
+        return ( <
+            DataTable title = "Arnold Movies"
+            columns = { columns }
+            data = { data }
+            selectableRows Clicked Selected = { handleChange }
             />
         )
     }
